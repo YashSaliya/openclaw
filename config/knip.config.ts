@@ -30,10 +30,12 @@ const bundledPluginEntries = [
 
 const bundledPluginIgnoredRuntimeDependencies = [
   "@agentclientprotocol/claude-agent-acp",
+  "@a2ui/lit",
   "@azure/identity",
   "@clawdbot/lobster",
   "@discordjs/opus",
   "@homebridge/ciao",
+  "@lit/context",
   "@matrix-org/matrix-sdk-crypto-wasm",
   "@mozilla/readability",
   "@openai/codex",
@@ -43,6 +45,7 @@ const bundledPluginIgnoredRuntimeDependencies = [
   "jiti",
   "json5",
   "linkedom",
+  "lit",
   "openclaw",
   "pdfjs-dist",
 ] as const;
