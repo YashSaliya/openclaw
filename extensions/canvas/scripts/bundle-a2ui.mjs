@@ -7,7 +7,6 @@ import fs from "node:fs/promises";
 import { createRequire } from "node:module";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
-import { resolvePnpmRunner } from "../../../scripts/pnpm-runner.mjs";
 
 const pluginDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const rootDir = path.resolve(pluginDir, "../..");
@@ -40,6 +39,17 @@ async function pathExists(targetPath) {
 
 function normalizePath(filePath) {
   return filePath.split(path.sep).join("/");
+}
+
+function resolvePnpmRunner(pnpmArgs) {
+  const npmExecPath = process.env.npm_execpath;
+  if (npmExecPath && /(?:^|[/\\])pnpm(?:-cli)?\.(?:c?js|mjs)$/.test(npmExecPath)) {
+    return { command: process.execPath, args: [npmExecPath, ...pnpmArgs], shell: false };
+  }
+  if (process.platform === "win32") {
+    return { command: "pnpm.cmd", args: pnpmArgs, shell: true };
+  }
+  return { command: "pnpm", args: pnpmArgs, shell: false };
 }
 
 export function isBundleHashInputPath(filePath, repoRoot = rootDir) {
@@ -153,16 +163,9 @@ function runStep(command, args, options = {}) {
 }
 
 function runPnpm(pnpmArgs) {
-  const runner = resolvePnpmRunner({
-    pnpmArgs,
-    nodeExecPath: process.execPath,
-    npmExecPath: process.env.npm_execpath,
-    comSpec: process.env.ComSpec,
-    platform: process.platform,
-  });
+  const runner = resolvePnpmRunner(pnpmArgs);
   runStep(runner.command, runner.args, {
     shell: runner.shell,
-    windowsVerbatimArguments: runner.windowsVerbatimArguments,
   });
 }
 

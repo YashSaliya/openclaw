@@ -377,7 +377,7 @@ const TOOLING_SOURCE_TEST_TARGETS = new Map([
   ["scripts/bundled-plugin-assets.mjs", ["test/scripts/bundled-plugin-assets.test.ts"]],
   ["scripts/bundle-a2ui.mjs", ["test/scripts/bundled-plugin-assets.test.ts"]],
   ["extensions/canvas/scripts/bundle-a2ui.mjs", ["test/scripts/bundle-a2ui.test.ts"]],
-  ["extensions/canvas/scripts/copy-a2ui.mjs", ["src/scripts/canvas-a2ui-copy.test.ts"]],
+  ["extensions/canvas/scripts/copy-a2ui.mjs", ["extensions/canvas/scripts/copy-a2ui.test.ts"]],
 ]);
 const TOOLING_TEST_TARGETS = new Map([
   ["test/scripts/barnacle-auto-response.test.ts", ["test/scripts/barnacle-auto-response.test.ts"]],

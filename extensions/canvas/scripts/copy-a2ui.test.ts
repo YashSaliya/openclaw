@@ -1,8 +1,8 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import { withTempDir } from "openclaw/plugin-sdk/test-env";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
-import { copyA2uiAssets } from "../../extensions/canvas/scripts/copy-a2ui.mjs";
-import { withTempDir } from "../test-utils/temp-dir.js";
+import { copyA2uiAssets } from "./copy-a2ui.mjs";
 
 const ORIGINAL_SKIP_MISSING = process.env.OPENCLAW_A2UI_SKIP_MISSING;
 const ORIGINAL_SPARSE_PROFILE = process.env.OPENCLAW_SPARSE_PROFILE;
